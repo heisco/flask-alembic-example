@@ -2,11 +2,16 @@
 Alembic migrations in Flask
 ===========================
 
-This is an example of setting up a Flask_ app to use alembic_ for database schema migrations. It uses Flask-Script_ to handle command-line arguments.
+This is an example of setting up a Flask_ app to use alembic_ for
+database schema migrations. It uses Flask-Script_ to handle command-line
+arguments. It works because alembic is called from a flask-script
+command, which wraps it in an `app context`_, so there is a database
+connection available at all times.
 
 .. _Flask: http://flask.pocoo.org/
 .. _alembic: https://alembic.readthedocs.org/
 .. _Flask-Script: http://flask-script.readthedocs.org/
+.. _app context: http://flask.pocoo.org/docs/appcontext/
 
 Create an `instance folder`_ and write a ``settings.py`` file inside::
 

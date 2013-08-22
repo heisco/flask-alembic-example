@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import argparse
 import flask
 from flask.ext.script import Manager
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -24,9 +25,16 @@ def create_app():
 manager = Manager(create_app)
 
 
+@manager.option('alembic_args', nargs=argparse.REMAINDER)
+def alembic(alembic_args):
+    from alembic.config import CommandLine
+    CommandLine().main(argv=alembic_args)
+
+
 @manager.command
 def syncdb():
     db.create_all()
+    alembic(['stamp', 'head'])
 
 
 if __name__ == '__main__':
